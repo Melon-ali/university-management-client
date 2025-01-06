@@ -1,4 +1,5 @@
 import { Layout, Menu } from 'antd'
+import { Outlet } from 'react-router-dom'
 const { Header, Content, Footer, Sider } = Layout
 
 const items = [
@@ -39,7 +40,15 @@ const MainLayout = () => {
           console.log(collapsed, type)
         }}
       >
-        <div className="demo-logo-vertical" />
+        <div style={{
+            color: 'white',
+            height: '4rem',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+        }}>
+            <h1>PH University</h1>
+        </div>
         <Menu
           theme="dark"
           mode="inline"
@@ -56,7 +65,7 @@ const MainLayout = () => {
               minHeight: 360,
             }}
           >
-            <h1>The Main Content Should go here</h1>
+            <Outlet />
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
