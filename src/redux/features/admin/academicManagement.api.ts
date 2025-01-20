@@ -8,7 +8,11 @@ const academicManagementApi = baseApi.injectEndpoints({
       query: (args) => {
         const params = new URLSearchParams();
 
-        params.append(args[0].name, args[0].value)
+       if(args){
+        args.forEach((item: { name: string; value: string; }) => {
+          params.append(item.name, item.value)
+        })
+       }
 
         return {
           url: "/academic-semesters",
@@ -17,7 +21,6 @@ const academicManagementApi = baseApi.injectEndpoints({
         };
       },
       transformResponse: (response: TResponseRedux<TAcademicSemester[]>) => {
-        console.log("Inside Redux", response);
         return {
           data: response.data,
           meta: response.meta,

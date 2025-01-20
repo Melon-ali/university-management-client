@@ -1,14 +1,19 @@
 import { Table, TableColumnsType, TableProps } from 'antd'
 import { useGetAllSemesterQuery } from '../../../redux/features/admin/academicManagement.api'
 import { TAcademicSemester } from '../../../types/academicManagement.type'
+import { useState } from 'react'
 
-export type TTableData = Pick<TAcademicSemester, '_id' | 'year' | 'startMonth' | 'endMonth'>;
+export type TTableData = Pick<
+  TAcademicSemester,
+  '_id' | 'year' | 'startMonth' | 'endMonth'
+>
 
 const AcademicSemester = () => {
-  const { data: semesterData } = useGetAllSemesterQuery([{name: 'year', value: '2027'}])
+  const [params, setParams] = useState([])
+  const { data: semesterData } = useGetAllSemesterQuery(params)
   const tableData = semesterData?.data?.map(
     ({ _id, name, startMonth, endMonth, year }) => ({
-      _id,
+      key: _id,
       name,
       startMonth,
       endMonth,
@@ -19,46 +24,37 @@ const AcademicSemester = () => {
   const columns: TableColumnsType<TTableData> = [
     {
       title: 'Name',
+      key: 'name',
       dataIndex: 'name',
-      showSorterTooltip: { target: 'full-header' },
       filters: [
         {
-          text: 'Joe',
-          value: 'Joe',
+          text: 'Autumn',
+          value: 'Autumn',
         },
         {
-          text: 'Jim',
-          value: 'Jim',
+          text: 'Fall',
+          value: 'Fall',
         },
         {
-          text: 'Submenu',
-          value: 'Submenu',
-          children: [
-            {
-              text: 'Green',
-              value: 'Green',
-            },
-            {
-              text: 'Black',
-              value: 'Black',
-            },
-          ],
+          text: 'Summer',
+          value: 'Summer',
         },
       ],
     },
     {
       title: 'Year',
+      key: 'year',
       dataIndex: 'year',
     },
     {
       title: 'Start Month',
+      key: 'startMonth',
       dataIndex: 'startMonth',
-      
     },
     {
       title: 'End Month',
+      key: 'endMonth',
       dataIndex: 'endMonth',
-      
     },
   ]
 
@@ -68,7 +64,15 @@ const AcademicSemester = () => {
     sorter,
     extra,
   ) => {
-    console.log('params', pagination, filters, sorter, extra)
+    if (extra.action === 'filter') {
+      const queryParams = []
+
+      filters.name?.forEach((item) =>
+        queryParams.push({ name: 'name', value: item }),
+      )
+      setParams(queryParams)
+      console.log(queryParams);
+    }
   }
 
   return (
