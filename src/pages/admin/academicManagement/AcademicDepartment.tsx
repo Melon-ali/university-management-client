@@ -1,9 +1,9 @@
-
-
 const AcademicDepartment = () => {
   return (
-    <div>AcademicDepartment</div>
-  )
-}
+    <div>
+      <h1> This is AcademicDepartment component </h1>
+    </div>
+  );
+};
 
-export default AcademicDepartment
+export default AcademicDepartment;

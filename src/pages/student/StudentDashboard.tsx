@@ -1,9 +1,9 @@
-
-
 const StudentDashboard = () => {
   return (
-    <div>StudentDashboard</div>
-  )
-}
+    <div>
+      <h1> This is StudentDashboard component </h1>
+    </div>
+  );
+};
 
-export default StudentDashboard
+export default StudentDashboard;

@@ -1,25 +1,25 @@
-import { Form, Input } from 'antd'
-import { Controller } from 'react-hook-form'
+import { Form, Input } from 'antd';
+import { Controller } from 'react-hook-form';
 
-type IInputProps = {
-  type: string
-  name: string
-  label?: string
-}
+type TInputProps = {
+  type: string;
+  name: string;
+  label?: string;
+};
 
-const PHInput = ({ type, name, label }: IInputProps) => {
+const PHInput = ({ type, name, label }: TInputProps) => {
   return (
     <div style={{ marginBottom: '20px' }}>
       <Controller
         name={name}
         render={({ field }) => (
           <Form.Item label={label}>
-            <Input {...field} type={type} id={name} size='large' />
+            <Input {...field} type={type} id={name} size="large" />
           </Form.Item>
         )}
       />
     </div>
-  )
-}
+  );
+};
 
-export default PHInput
+export default PHInput;

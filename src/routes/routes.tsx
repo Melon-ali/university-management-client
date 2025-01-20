@@ -1,11 +1,12 @@
-import { createBrowserRouter } from 'react-router-dom'
-import App from '../App'
-import { adminPaths } from './admin.routes'
-import Login from '../pages/Login'
-import Register from '../pages/Register'
-import { routeGenerator } from '../utils/routesGenerator'
-import { facultyPaths } from './faculty.routes'
-import { studentPaths } from './student.routes'
+import { createBrowserRouter } from 'react-router-dom';
+import App from '../App';
+import Login from '../pages/Login';
+import Register from '../pages/Register';
+import { adminPaths } from './admin.routes';
+import { routeGenerator } from '../utils/routesGenerator';
+import { facultyPaths } from './faculty.routes';
+import { studentPaths } from './student.routes';
+import ProtectedRoute from '../components/layout/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -29,12 +30,12 @@ const router = createBrowserRouter([
   },
   {
     path: '/login',
-    element: <Login />
+    element: <Login />,
   },
   {
     path: '/register',
-    element: <Register />
-  }
-])
+    element: <Register />,
+  },
+]);
 
-export default router
+export default router;

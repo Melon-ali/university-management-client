@@ -1,13 +1,13 @@
-import AcademicDepartment from '../pages/admin/academicManagement/AcademicDepartment'
-import AcademicFaculty from '../pages/admin/academicManagement/AcademicFaculty'
-import AcademicSemester from '../pages/admin/academicManagement/AcademicSemester'
-import CreateAcademicDepartment from '../pages/admin/academicManagement/CreateAcademicDepartment'
-import CreateAcademicFaculty from '../pages/admin/academicManagement/CreateAcademicFaculty'
-import CreateAcademicSemester from '../pages/admin/academicManagement/CreateAcademicSemester'
-import AdminDashboard from '../pages/admin/AdminDashboard'
-import CreateAdmin from '../pages/admin/CreateAdmin'
-import CreateFaculty from '../pages/admin/CreateFaculty'
-import CreateStudent from '../pages/admin/CreateStudent'
+import AdminDashboard from '../pages/admin/AdminDashboard';
+import CreateAdmin from '../pages/admin/CreateAdmin';
+import CreateFaculty from '../pages/admin/CreateFaculty';
+import CreateStudent from '../pages/admin/CreateStudent';
+import AcademicDepartment from '../pages/admin/academicManagement/AcademicDepartment';
+import AcademicFaculty from '../pages/admin/academicManagement/AcademicFaculty';
+import AcademicSemester from '../pages/admin/academicManagement/AcademicSemester';
+import CreateAcademicDepartment from '../pages/admin/academicManagement/CreateAcademicDepartment';
+import CreateAcademicFaculty from '../pages/admin/academicManagement/CreateAcademicFaculty';
+import CreateAcademicSemester from '../pages/admin/academicManagement/CreateAcademicSemester';
 
 export const adminPaths = [
   {
@@ -75,7 +75,7 @@ export const adminPaths = [
       },
     ],
   },
-]
+];
 
 // export const adminSidebarItems = adminPaths.reduce(
 //   (acc: TSidebarItem[], item) => {
@@ -83,7 +83,7 @@ export const adminPaths = [
 //       acc.push({
 //         key: item.name,
 //         label: <NavLink to={`/admin/${item.path}`}>{item.name}</NavLink>,
-//       })
+//       });
 //     }
 
 //     if (item.children) {
@@ -94,13 +94,13 @@ export const adminPaths = [
 //           key: child.name,
 //           label: <NavLink to={`/admin/${child.path}`}>{child.name}</NavLink>,
 //         })),
-//       })
+//       });
 //     }
 
-//     return acc
+//     return acc;
 //   },
-//   [],
-// )
+//   []
+// );
 
 //* Programatical way
 
@@ -109,7 +109,7 @@ export const adminPaths = [
 //     acc.push({
 //       path: item.path,
 //       element: item.element,
-//     })
+//     });
 //   }
 
 //   if (item.children) {
@@ -117,9 +117,30 @@ export const adminPaths = [
 //       acc.push({
 //         path: child.path,
 //         element: child.element,
-//       })
-//     })
+//       });
+//     });
 //   }
 
-//   return acc
-// }, [])
+//   return acc;
+// }, []);
+
+//! Hard coded way
+
+// export const adminPaths = [
+//   {
+//     path: 'dashboard',
+//     element: <AdminDashboard />,
+//   },
+//   {
+//     path: 'create-student',
+//     element: <CreateStudent />,
+//   },
+//   {
+//     path: 'create-admin',
+//     element: <CreateAdmin />,
+//   },
+//   {
+//     path: 'create-faculty',
+//     element: <CreateFaculty />,
+//   },
+// ];
