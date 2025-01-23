@@ -84,23 +84,33 @@ const studentDefaultValues = {
 }
 
 const CreateStudent = () => {
-  const {data: sData, isLoading: sIsLoading} = useGetAllSemestersQuery(undefined)
+  const { data: sData, isLoading: sIsLoading } =
+    useGetAllSemestersQuery(undefined);
+
+  // const { data: dData, isLoading: dIsLoading } =
+  //   useGetAcademicDepartmentsQuery(undefined);
+
+
   const semesterOptions = sData?.data?.map((item) => ({
     value: item._id,
     label: `${item.name} ${item.year}`,
   }));
 
-  // const departmentOptions = dData?.data?.map((item) => ({
-  //   value: item._id,
-  //   label: item.name,
-  // }));
+  const departmentOptions = sData?.data?.map((item) => ({
+    value: item._id,
+    label: item.name,
+  }));
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-    // const formData = new FormData()
+    const studentData = {
+      password: 'student123',
+      student: data
+    }
 
-    // formData.append('data', JSON.stringify(data))
+    const formData = new FormData()
 
-    // console.log(Object.fromEntries(formData))
+    formData.append('data', JSON.stringify(studentData))
+
+    console.log(Object.fromEntries(formData))
   }
   return (
     <Row>
@@ -118,7 +128,7 @@ const CreateStudent = () => {
               <PHInput type="text" name="name.lastName" label="Last Name" />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHSelect options={genderOptions} name="gender" label="Gender" />
+              <PHSelect options={genderOptions} name="gender" label="Gender" disabled={false} />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <PHDatePicker name="dateOfBirth" label="Date of birth" />
@@ -127,8 +137,7 @@ const CreateStudent = () => {
               <PHSelect
                 options={bloodGroupOptions}
                 name="bloogGroup"
-                label="Blood group"
-              />
+                label="Blood group" disabled={false}              />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <Controller
@@ -259,10 +268,10 @@ const CreateStudent = () => {
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <PHSelect
-                // options={departmentOptions}
-                // disabled={dIsLoading}
+                options={departmentOptions}
+                disabled={sIsLoading}
                 name="academicDepartment"
-                label="Admission Department" options={[]} />
+                label="Admission Department" />
             </Col>
           </Row>
           <Button htmlType="submit">Submit</Button>

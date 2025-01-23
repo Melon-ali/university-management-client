@@ -35,6 +35,7 @@ const academicManagementApi = baseApi.injectEndpoints({
         body: data,
       }),
     }),
+    
   }),
 });
 
