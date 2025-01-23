@@ -5,7 +5,8 @@ import { Button, Col, Divider, Form, Input, Row } from 'antd'
 import PHSelect from '../../../components/form/PHSelect'
 import { bloodGroupOptions, genderOptions } from '../../../constants/global'
 import PHDatePicker from '../../../components/form/PHDatePicker'
-import { useGetAllSemestersQuery } from '../../../redux/features/admin/academicManagement.api'
+import { useGetAcademicDepartmentsQuery, useGetAllSemestersQuery } from '../../../redux/features/admin/academicManagement.api'
+import { useAddStudentMutation } from '../../../redux/features/admin/userManagement.api'
 
 const studentDummyData = {
   password: 'student123',
@@ -84,39 +85,48 @@ const studentDefaultValues = {
 }
 
 const CreateStudent = () => {
+  const [addStudent, { data, error }] = useAddStudentMutation();
+
+  console.log({ data, error });
+
   const { data: sData, isLoading: sIsLoading } =
     useGetAllSemestersQuery(undefined);
 
-  // const { data: dData, isLoading: dIsLoading } =
-  //   useGetAcademicDepartmentsQuery(undefined);
-
+  const { data: dData, isLoading: dIsLoading } =
+    useGetAcademicDepartmentsQuery(undefined);
 
   const semesterOptions = sData?.data?.map((item) => ({
     value: item._id,
     label: `${item.name} ${item.year}`,
   }));
 
-  const departmentOptions = sData?.data?.map((item) => ({
+  const departmentOptions = dData?.data?.map((item) => ({
     value: item._id,
     label: item.name,
   }));
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const studentData = {
       password: 'student123',
-      student: data
-    }
+      student: data,
+    };
 
-    const formData = new FormData()
+    const formData = new FormData();
 
-    formData.append('data', JSON.stringify(studentData))
+    formData.append('data', JSON.stringify(studentData));
+    formData.append('file', data.image);
 
-    console.log(Object.fromEntries(formData))
-  }
+    addStudent(formData);
+
+    //! This is for development
+    //! Just for checking
+    console.log(Object.fromEntries(formData));
+  };
   return (
-    <Row>
+    <Row justify="center">
       <Col span={24}>
         <PHForm onSubmit={onSubmit} defaultValues={studentDefaultValues}>
-        <Divider>Personal Info.</Divider>
+          <Divider>Personal Info.</Divider>
           <Row gutter={8}>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <PHInput type="text" name="name.firstName" label="First Name" />
@@ -128,7 +138,7 @@ const CreateStudent = () => {
               <PHInput type="text" name="name.lastName" label="Last Name" />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHSelect options={genderOptions} name="gender" label="Gender" disabled={false} />
+              <PHSelect options={genderOptions} name="gender" label="Gender" />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <PHDatePicker name="dateOfBirth" label="Date of birth" />
@@ -137,7 +147,8 @@ const CreateStudent = () => {
               <PHSelect
                 options={bloodGroupOptions}
                 name="bloogGroup"
-                label="Blood group" disabled={false}              />
+                label="Blood group"
+              />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <Controller
@@ -264,16 +275,19 @@ const CreateStudent = () => {
                 options={semesterOptions}
                 disabled={sIsLoading}
                 name="admissionSemester"
-                label="Admission Semester" />
+                label="Admission Semester"
+              />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <PHSelect
                 options={departmentOptions}
-                disabled={sIsLoading}
+                disabled={dIsLoading}
                 name="academicDepartment"
-                label="Admission Department" />
+                label="Admission Department"
+              />
             </Col>
           </Row>
+
           <Button htmlType="submit">Submit</Button>
         </PHForm>
       </Col>
