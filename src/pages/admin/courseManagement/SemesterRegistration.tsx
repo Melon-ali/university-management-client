@@ -42,6 +42,7 @@ const SemesterRegistration = () => {
       } else {
         toast.success('Semester created', { id: toastId })
       }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       toast.error('Something went wrong', { id: toastId })
     }
