@@ -6,6 +6,7 @@ import {
   useCurrentToken,
 } from '../../redux/features/auth/authSlice'
 import { Navigate } from 'react-router-dom'
+import { verifyToken } from '../../utils/verifyToken'
 
 type TProtectedRoute = {
   children: ReactNode
@@ -14,12 +15,17 @@ type TProtectedRoute = {
 
 const ProtectedRoute = ({ children, role }: TProtectedRoute) => {
   const token = useAppSelector(useCurrentToken)
-  const user = useAppSelector(selectCurrentUser)
+
+  let user;
+
+  if(token){
+    user = verifyToken(token)
+  }
+
+  console.log(user);
 
   const dispatch = useAppDispatch();
 
-  console.log(role)
-  console.log(user)
 
   if (role !== undefined && role !== user?.role) {
     dispatch(logout())
