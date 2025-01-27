@@ -15,13 +15,13 @@ const Login = () => {
   // const { register, handleSubmit } = useForm({
   //   defaultValues: {
   //     userId: 'A-0002',
-  //     password: 'admin123',
+  //     password: 'admin1234',
   //   },
   // });
 
   const defaultValues = {
-    userId: '2030020001',
-    password: 'student123',
+    userId: 'A-0001',
+    password: 'admin1234',
   };
 
   const [login] = useLoginMutation();

@@ -2,6 +2,7 @@ import { TQueryParam, TResponseRedux } from "../../../types";
 import { TOfferedCourse } from "../../../types/studentCourse.type";
 import { baseApi } from "../../api/baseApi";
 
+
 const studentCourseApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
       getAllOfferedCourses: builder.query({
